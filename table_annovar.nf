@@ -41,6 +41,7 @@ process annovar {
   file_name = tables.baseName
   '''
   table_annovar.pl -nastring NA -buildver hg19 --thread !{params.thread} --onetranscript -remove -protocol refGene,knownGene,ensGene,cytoBand,genomicSuperDups,tfbsConsSites,gwasCatalog,avsnp144,popfreq_all_20150413,exac03nontcga,kaviar_20150923,cosmic77,clinvar_20150330,mcap,revel,dbnsfp30a,dbnsfp31a_interpro,dbscsnv11,germline_catalog_TCGA_560 -operation g,g,g,r,r,r,r,f,f,f,f,f,f,f,f,f,f,f,f -otherinfo !{tables} /appli57/annovar/Annovar_DB/hg19db
+  sed -i '1s/Otherinfo/QUAL\tFILTER\tINFO\tFORMAT\tNORMAL\tPRIMARY\tID\tIndividual\tStudy/' !{tables}.hg19_multianno.txt
   '''
 
 }
