@@ -40,7 +40,7 @@ process annovar {
   shell:
   file_name = tables.baseName
   '''
-  table_annovar.pl -nastring NA -buildver hg19 --thread !{params.thread} --onetranscript -remove -protocol refGene,popfreq_all_20150413,clinvar_20170130,intervar,revel -operation g,f,f,f,f -otherinfo !{tables} /appli57/annovar/Annovar_DB/hg19db
+  table_annovar.pl -nastring NA -buildver hg19 --thread !{params.thread} --onetranscript -remove -protocol refGene,popfreq_all_20150413,clinvar_20170130,intervar_20170202,revel -operation g,f,f,f,f -otherinfo !{tables} /appli57/annovar/Annovar_DB/hg19db
   sed -i '1s/Otherinfo/QUAL\tFILTER\tINFO\tFORMAT\tNORMAL\tPRIMARY\tID\tIndividual\tStudy/' !{tables}.hg19_multianno.txt
   '''
 
