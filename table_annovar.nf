@@ -40,7 +40,7 @@ process annovar {
   shell:
   file_name = tables.baseName
   '''
-  table_annovar.pl -nastring NA -buildver hg38 --thread !{params.thread} --onetranscript -remove -protocol refGene,exac03nontcga,esp6500siv2_all,1000g2015aug,gnomad_exome,clinvar_20170905,revel -operation g,f,f,f,f,f,f -otherinfo !{tables} /appli57/annovar/Annovar_DB/hg38db
+  table_annovar.pl -nastring NA -buildver hg38 --thread !{params.thread} --onetranscript -remove -protocol refGene,exac03nontcga,esp6500siv2_all,1000g2015aug_all,gnomad_exome,clinvar_20170905,revel -operation g,f,f,f,f,f,f -otherinfo !{tables} /appli57/annovar/Annovar_DB/hg38db
   sed -i '1s/Otherinfo/QUAL\tFILTER\tINFO\tFORMAT\tNORMAL\tPRIMARY\tID\tIndividual\tStudy/' !{tables}.hg38_multianno.txt
   '''
 
