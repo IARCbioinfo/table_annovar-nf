@@ -48,6 +48,6 @@ process annovar {
   }
   file_name = table.baseName
   '''
-  table_annovar.pl -buildver hg38 --thread !{params.thread} --onetranscript !{vcf} -remove -protocol refGene,exac03nontcga,esp6500siv2_all,1000g2015aug_all,gnomad_genome,gnomad_exome,clinvar_20170905,revel,ljb26_all -operation g,f,f,f,f,f,f,f,f -otherinfo !{table} !{annodb} -out !{file_name}
+  table_annovar.pl -buildver hg38 --thread !{params.thread} --onetranscript !{vcf} -remove -protocol ensGene,exac03nontcga,esp6500siv2_all,1000g2015aug_all,gnomad211_genome,gnomad211_exome,clinvar_20190305,revel,dbnsfp35a,dbnsfp31a_interpro,intervar_20180118,cosmic84_coding,cosmic84_noncoding,avsnp150,phastConsElements100way,wgRna -operation g,f,f,f,f,f,f,f,f,f,f,f,f,f,r,r -otherinfo !{table} !{annodb} -out !{file_name}
   '''
 }
