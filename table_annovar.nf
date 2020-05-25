@@ -29,7 +29,7 @@ if (params.help) {
     exit 0
 }
 
-log.info 'table_folder=${params.table_folder}'
+log.info "table_folder=${params.table_folder}"
 
 tables = Channel.fromPath( params.table_folder+'/*.'+params.table_extension)
                  .ifEmpty { error "empty table folder, please verify your input." }
