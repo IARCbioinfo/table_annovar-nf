@@ -62,9 +62,10 @@ To run the pipeline without singularity just remove "-profile singularity". Alte
 ## Output
   | Type      | Description     |
   |-----------|---------------|
-  | file_multianno.txt, file_multianno.vcf       | Annovar tables and VCF files with annotations|
+  | file_multianno.txt       | Annovar tables |
+  | file_multianno.vcf.gz, file_multianno.vcf.gz.tbi   | (optional, if --table_extension vcf or vcf.gz) Compressed and indexed annotated VCF files |
 
-See output format [here](http://annovar.openbioinformatics.org/en/latest/user-guide/input/).
+See info on output annovar format [here](http://annovar.openbioinformatics.org/en/latest/user-guide/input/).
 
 ## Contributions
 
