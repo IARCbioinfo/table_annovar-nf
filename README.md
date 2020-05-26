@@ -4,6 +4,8 @@
 [![Docker Hub](https://img.shields.io/badge/docker-ready-blue.svg)](https://hub.docker.com/r/iarcbioinfo/table_annovar-nf/)
 [![https://www.singularity-hub.org/static/img/hosted-singularity--hub-%23e32929.svg](https://www.singularity-hub.org/static/img/hosted-singularity--hub-%23e32929.svg)](https://singularity-hub.org/collections/4381)
 
+![Workflow representation](table_annovar-nf.png)
+
 ## Description
 This pipeline runs table_annovar.pl on a folder full of vcf files.
 
@@ -12,7 +14,7 @@ This pipeline runs table_annovar.pl on a folder full of vcf files.
 
 2. External software:  
   * [annovar](http://annovar.openbioinformatics.org/en/latest/)  
-  * [bcftools](http://samtools.github.io/bcftools/bcftools.html)  
+  * [bcftools](http://samtools.github.io/bcftools/bcftools.html), only used if input is in vcf format (option --table_extension vcf or vcf.gz) 
 
  **Caution**: the perl script `annotate_variation.pl` and `bcftools` have to be in your $PATH (note: in case you are using the conda, docker, or singularity profiles, bcftools will automatically be in your $PATH but not annotate_variation.pl). 
 
