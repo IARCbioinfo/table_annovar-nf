@@ -58,6 +58,8 @@ nextflow run iarcbioinfo/table_annovar-nf -r v1.0 -profile singularity --table_f
 
 To run the pipeline without singularity just remove "-profile singularity". Alternatively, one can run the pipeline using a docker container (-profile docker) the conda receipe containing all required dependencies (-profile conda). 
 
+Note that because due to licensing considerations, annovar has to be installed locally and cannot be included in a container, the path to table_annovar.pl needs to be in the $PATH environment variable and needs to be mounted (e.g., using nextflow option singularity.runOptions = "-B /home/bin" and adding /home/bin to environment variable SINGULARITYENV_APPEND_PATH with nextflow option singularity.envWhitelist="SINGULARITYENV_APPEND_PATH").
+
 
 ## Output
   | Type      | Description     |
