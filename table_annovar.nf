@@ -48,7 +48,7 @@ process annovar {
 
   output:
   file "*multianno*.txt" into output_annovar_txt
-  file "*multianno*.vcf" into output_annovar_vcf
+  file "*multianno*.vcf" optional true into output_annovar_vcf
 
   publishDir params.output_folder, mode: 'copy', pattern: '{*.txt}' 
 
