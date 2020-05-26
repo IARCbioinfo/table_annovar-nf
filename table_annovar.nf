@@ -9,9 +9,9 @@ params.annovar_params = "-remove -protocol ensGene,exac03nontcga,esp6500siv2_all
 
 if (params.help) {
     log.info ''
-    log.info '--------------------------------------------------'
-    log.info '                   TABLE ANNOVAR                  '
-    log.info '--------------------------------------------------'
+    log.info '--------------------------------------------------------------'
+    log.info 'table_annovar-nf 1.1.0: Nextflow pipeline to run TABLE ANNOVAR'
+    log.info '--------------------------------------------------------------'
     log.info ''
     log.info 'Usage: '
     log.info 'nextflow run table_annovar.nf --table_folder myinputfolder'
@@ -22,6 +22,7 @@ if (params.help) {
     log.info '    --cpu                INTEGER           Number of cpu used by annovar (default: 1).'
     log.info '    --mem                INTEGER           Size of memory (in GB) (default: 4).'
     log.info '    --output_folder      FOLDER		 Folder where output is written.'
+    log.info '    --table_extension    STRING		 Extension of input tables (default: tsv).'
     log.info '    --annovar_db         FOLDER  	  	 Folder with annovar databases (default: Annovar_db)'
     log.info '    --buildver 	       STRING		 Version of genome build (default: hg38)'
     log.info '    --annovar_params     STRING		 Parameters given to table_annovar.pl (default: multiple databases--see README)'
@@ -46,9 +47,10 @@ process annovar {
   file annodb
 
   output:
-  file "*multianno*" into output_annovar
+  file "*multianno*.txt" into output_annovar_txt
+  file "*multianno*.vcf" into output_annovar_vcf
 
-  publishDir params.output_folder, mode: 'copy'
+  publishDir params.output_folder, mode: 'copy', pattern: '{*.txt}' 
 
   shell:
   if(params.table_extension=="vcf"|params.table_extension=="vcf.gz"){
@@ -60,4 +62,23 @@ process annovar {
   '''
   table_annovar.pl -buildver !{params.buildver} --thread !{params.cpu} --onetranscript !{vcf} !{params.annovar_params} !{table} !{annodb} -out !{file_name}
   '''
+}
+
+process CompressAndIndex {
+    tag { vcf_name }
+
+    input:
+    file(vcf) from output_annovar_vcf
+
+    output:
+    set file("*.vcf.gz"), file("*.vcf.gz.tbi") into output_annovar_vcfgztbi
+
+    publishDir params.output_folder, mode: 'copy'
+
+    shell:
+    vcf_name = vcf.baseName
+    '''
+    bcftools view -O z !{vcf} > !{vcf_name}.vcf.gz
+    bcftools index -t !{vcf_name}.vcf.gz
+    '''
 }

@@ -6,7 +6,7 @@ FROM continuumio/miniconda3:4.7.12
 LABEL base_image="continuumio/miniconda3"
 LABEL version="4.7.12"
 LABEL software="table_annovar-nf"
-LABEL software.version="1.0"
+LABEL software.version="1.1"
 LABEL about.summary="Container image containing all requirements for table_annovar-nf"
 LABEL about.home="http://github.com/IARCbioinfo/table_annovar-nf"
 LABEL about.documentation="http://github.com/IARCbioinfo/table_annovar-nf/README.md"

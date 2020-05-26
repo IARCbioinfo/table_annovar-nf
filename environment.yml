@@ -5,3 +5,4 @@ channels:
   - defaults
 dependencies:
   - perl=5.26.2
+  - bcftools=1.10.2
