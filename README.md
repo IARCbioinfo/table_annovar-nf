@@ -12,8 +12,9 @@ This pipeline runs table_annovar.pl on a folder full of vcf files.
 
 2. External software:  
   * [annovar](http://annovar.openbioinformatics.org/en/latest/)  
+  * [bcftools](http://samtools.github.io/bcftools/bcftools.html)  
 
- **Caution**: the perl script `annotate_variation.pl` has to be in your $PATH. 
+ **Caution**: the perl script `annotate_variation.pl` and `bcftools` have to be in your $PATH (note: in case you are using the conda, docker, or singularity profiles, bcftools will automatically be in your $PATH but not annotate_variation.pl). 
 
 ## Input
 
