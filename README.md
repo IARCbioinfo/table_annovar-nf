@@ -38,6 +38,8 @@ This pipeline runs table_annovar.pl on a folder full of vcf files.
 | `--annovar_db` |Annovar_db  |  Folder with annovar databases |
 |  `--buildver` | hg38 | Version of genome build |
 | `--table_extension` | tsv | Extension of input tables |
+| `--annot` | hg38_ensGene.txt | Path to annovar transcript annotation file | 
+| `--annot_mrna` | hg38_ensGeneMrna.fa | Path to annovar transcript annotation fasta file |
  
 The default annovar params are: `-protocol ensGene, exac03nontcga,esp6500siv2_all,1000g2015aug_all,gnomad211_genome,gnomad211_exome,clinvar_20190305,revel,dbnsfp35a,dbnsfp31a_interpro,intervar_20180118,cosmic84_coding,cosmic84_noncoding,avsnp150,phastConsElements100way,wgRna -operation g,f,f,f,f,f,f,f,f,f,f,f,f,f,r,r -otherinfo`, which imply that the corresponding annovar databases are installed. You can specify any other options using the annovar_params option.
 
@@ -66,7 +68,7 @@ Note that because due to licensing considerations, annovar has to be installed l
   |-----------|---------------|
   | file_multianno.txt       | Annovar tables |
   | file_multianno.vcf.gz, file_multianno.vcf.gz.tbi   | (optional, if --table_extension vcf or vcf.gz) Compressed and indexed annotated VCF files |
-  | coding_changes/file_coding_changes.fa   | (optional, if exonic variant function is computed) fasta file with altered transcripts |
+  | coding_change/file_coding_change.fa   | (optional, if exonic variant function is computed) fasta file with altered transcripts |
 
 See info on output annovar format [here](http://annovar.openbioinformatics.org/en/latest/user-guide/input/).
 
