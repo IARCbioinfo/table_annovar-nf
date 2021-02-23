@@ -89,7 +89,7 @@ process CompressAndIndex {
 }
 
 process coding_change {
-    tag { vcf_name }
+    tag { exonicFuncname }
 
     input:
     file(exonicFunc) from exonicFuncFiles
@@ -101,7 +101,8 @@ process coding_change {
     publishDir "${params.output_folder}/coding_change", mode: 'copy'
 
     shell:
+    exonicFuncname = exonicFunc.baseName
     '''
-    coding_change.pl -includesnp !{exonicFunc} !{annodb}/hg38_ensGene.txt !{annodb}/hg38_ensGeneMrna.fa > !{exonicFunc}_coding_change.fa
+    coding_change.pl -includesnp !{exonicFunc} !{annodb}/!{params.annot} !{annodb}/!{params.annot_mrna} > !{exonicFunc}_coding_change.fa
     '''
 }
