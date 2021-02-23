@@ -5,9 +5,7 @@ params.cpu = 1
 params.annovar_db = "Annovar_db/"
 params.mem    = 4
 params.buildver = "hg38"
-params.annot = "hg38_ensGene.txt"
-params.annot_mrna = "hg38_ensGeneMrna.txt"
-params.annovar_params = "-protocol ensGene,exac03nontcga,esp6500siv2_all,1000g2015aug_all,gnomad211_genome,gnomad211_exome,clinvar_20190305,revel,dbnsfp35a,dbnsfp31a_interpro,intervar_20180118,cosmic84_coding,cosmic84_noncoding,avsnp150,phastConsElements100way,wgRna -operation g,f,f,f,f,f,f,f,f,f,f,f,f,f,r,r -otherinfo "
+params.annovar_params = "--codingarg includesnp -protocol ensGene,exac03nontcga,esp6500siv2_all,1000g2015aug_all,gnomad211_genome,gnomad211_exome,clinvar_20190305,revel,dbnsfp35a,dbnsfp31a_interpro,intervar_20180118,cosmic84_coding,cosmic84_noncoding,avsnp150,phastConsElements100way,wgRna -operation g,f,f,f,f,f,f,f,f,f,f,f,f,f,r,r -otherinfo "
 
 if (params.help) {
     log.info ''
@@ -28,8 +26,6 @@ if (params.help) {
     log.info '    --annovar_db         FOLDER  	  	 Folder with annovar databases (default: Annovar_db)'
     log.info '    --buildver 	       STRING		 Version of genome build (default: hg38)'
     log.info '    --annovar_params     STRING		 Parameters given to table_annovar.pl (default: multiple databases--see README)'
-    log.info '    --annot              PATH              Path to annovar transcript annotation file (default: hg38_ensGene.txt)'
-    log.info '    --annot_mrna         PATH              Path to annovar transcript annotation fasta file (default: hg38_ensGeneMrna.fa)'
     log.info ''
     exit 0
 }
@@ -56,6 +52,7 @@ process annovar {
   file "*exonic_variant_function*" optional true into exonicFuncFiles
 
   publishDir params.output_folder, mode: 'copy', pattern: '{*.txt}' 
+  publishDir "${params.output_folder}/coding_changes", mode: 'copy', pattern: '{*.fa}'
 
   shell:
   if(params.table_extension=="vcf"|params.table_extension=="vcf.gz"){
@@ -85,24 +82,5 @@ process CompressAndIndex {
     '''
     bcftools view -O z !{vcf} > !{vcf_name}.vcf.gz
     bcftools index -t !{vcf_name}.vcf.gz
-    '''
-}
-
-process coding_change {
-    tag { exonicFuncname }
-
-    input:
-    file(exonicFunc) from exonicFuncFiles
-    file annodb
-
-    output:
-    file("*coding_change.fa") into output_coding_change
-
-    publishDir "${params.output_folder}/coding_change", mode: 'copy'
-
-    shell:
-    exonicFuncname = exonicFunc.baseName
-    '''
-    coding_change.pl -includesnp !{exonicFunc} !{annodb}/!{params.annot} !{annodb}/!{params.annot_mrna} > !{exonicFunc}_coding_change.fa
     '''
 }
