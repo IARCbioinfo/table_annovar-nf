@@ -38,10 +38,8 @@ This pipeline runs table_annovar.pl on a folder full of vcf files.
 | `--annovar_db` |Annovar_db  |  Folder with annovar databases |
 |  `--buildver` | hg38 | Version of genome build |
 | `--table_extension` | tsv | Extension of input tables |
-| `--annot` | hg38_ensGene.txt | Path to annovar transcript annotation file | 
-| `--annot_mrna` | hg38_ensGeneMrna.fa | Path to annovar transcript annotation fasta file |
  
-The default annovar params are: `-protocol ensGene, exac03nontcga,esp6500siv2_all,1000g2015aug_all,gnomad211_genome,gnomad211_exome,clinvar_20190305,revel,dbnsfp35a,dbnsfp31a_interpro,intervar_20180118,cosmic84_coding,cosmic84_noncoding,avsnp150,phastConsElements100way,wgRna -operation g,f,f,f,f,f,f,f,f,f,f,f,f,f,r,r -otherinfo`, which imply that the corresponding annovar databases are installed. You can specify any other options using the annovar_params option.
+The default annovar params are: `--codingarg -includesnp -protocol ensGene, exac03nontcga,esp6500siv2_all,1000g2015aug_all,gnomad211_genome,gnomad211_exome,clinvar_20190305,revel,dbnsfp35a,dbnsfp31a_interpro,intervar_20180118,cosmic84_coding,cosmic84_noncoding,avsnp150,phastConsElements100way,wgRna -operation g,f,f,f,f,f,f,f,f,f,f,f,f,f,r,r -otherinfo`, which imply that the corresponding annovar databases are installed. You can specify any other options using the annovar_params option.
 
   * #### Flags
 
