@@ -49,7 +49,7 @@ process annovar {
   output:
   file "*multianno*.txt" into output_annovar_txt
   file "*multianno*.vcf" optional true into output_annovar_vcf
-  file "*exonic_variant_function*" optional true into exonicFuncFiles
+  file "*.fa" optional true into coding_changes_fasta
 
   publishDir params.output_folder, mode: 'copy', pattern: '{*.txt}' 
   publishDir "${params.output_folder}/coding_changes", mode: 'copy', pattern: '{*.fa}'
