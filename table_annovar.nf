@@ -5,12 +5,12 @@ params.cpu = 1
 params.annovar_db = "Annovar_db/"
 params.mem    = 4
 params.buildver = "hg38"
-params.annovar_params = "-remove -protocol ensGene,exac03nontcga,esp6500siv2_all,1000g2015aug_all,gnomad211_genome,gnomad211_exome,clinvar_20190305,revel,dbnsfp35a,dbnsfp31a_interpro,intervar_20180118,cosmic84_coding,cosmic84_noncoding,avsnp150,phastConsElements100way,wgRna -operation g,f,f,f,f,f,f,f,f,f,f,f,f,f,r,r -otherinfo "
+params.annovar_params = "--codingarg includesnp -protocol ensGene,exac03nontcga,esp6500siv2_all,1000g2015aug_all,gnomad211_genome,gnomad211_exome,clinvar_20190305,revel,dbnsfp35a,dbnsfp31a_interpro,intervar_20180118,cosmic84_coding,cosmic84_noncoding,avsnp150,phastConsElements100way,wgRna -operation g,f,f,f,f,f,f,f,f,f,f,f,f,f,r,r -otherinfo "
 
 if (params.help) {
     log.info ''
     log.info '--------------------------------------------------------------'
-    log.info 'table_annovar-nf 1.1.0: Nextflow pipeline to run TABLE ANNOVAR'
+    log.info 'table_annovar-nf 1.1.1: Nextflow pipeline to run TABLE ANNOVAR'
     log.info '--------------------------------------------------------------'
     log.info ''
     log.info 'Usage: '
@@ -49,8 +49,10 @@ process annovar {
   output:
   file "*multianno*.txt" into output_annovar_txt
   file "*multianno*.vcf" optional true into output_annovar_vcf
+  file "*.fa" optional true into coding_changes_fasta
 
   publishDir params.output_folder, mode: 'copy', pattern: '{*.txt}' 
+  publishDir "${params.output_folder}/coding_changes", mode: 'copy', pattern: '{*.fa}'
 
   shell:
   if(params.table_extension=="vcf"|params.table_extension=="vcf.gz"){
